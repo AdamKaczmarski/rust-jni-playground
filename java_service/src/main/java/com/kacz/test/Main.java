@@ -1,8 +1,6 @@
 package com.kacz.test;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class Main {
     static {
@@ -10,15 +8,14 @@ public class Main {
     }
 
     // The rest is just regular ol' Java!
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         Test t = new Test("world");
         System.out.println(t.hello());
-        ArrayList<String>names = new ArrayList<>(3) ;
+        ArrayList<String> names = new ArrayList<>(3);
         names.add("Adam");
         names.add("Kacz");
         names.add("from Rust");
         t.differentHellos(names);
-
 
 
     }
