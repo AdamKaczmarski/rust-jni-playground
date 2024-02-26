@@ -1,4 +1,6 @@
-use jni::objects::{JObject, JValueGen};
+use std::collections::HashMap;
+
+use jni::objects::{JMap, JObject, JString, JValueGen};
 use jni::sys::jstring;
 use jni::JNIEnv;
 
@@ -42,5 +44,49 @@ pub extern "system" fn Java_com_kacz_test_Test_differentHellos<'local>(
             println!("Hello {}!", name);
         }
         Ok(())
+    });
+}
+
+#[no_mangle]
+pub extern "system" fn Java_com_kacz_test_Test_frequencies<'local>(
+    mut env: JNIEnv<'local>,
+    _called_object: JObject<'local>,
+    //input
+    input_string: JString<'local>,
+) {
+    let input: String = env
+        .get_string(&input_string.into())
+        .expect("Couldn't get java string")
+        .into();
+    let mut rs_map: HashMap<char, usize> = HashMap::new();
+    input.chars().for_each(|c| {
+        if rs_map.contains_key(&c) {
+            rs_map.insert(c, rs_map.get(&c).unwrap() + 1);
+        } else {
+            rs_map.insert(c, 1);
+        }
+    });
+    // return Ok(());
+}
+
+
+#[no_mangle]
+pub extern "system" fn Java_com_kacz_test_Main_rsFrequencies<'local>(
+    mut env: JNIEnv<'local>,
+    _called_object: JObject<'local>,
+    //input
+    input_string: JString<'local>,
+) {
+    let input: String = env
+        .get_string(&input_string.into())
+        .expect("Couldn't get java string")
+        .into();
+    let mut rs_map: HashMap<char, usize> = HashMap::new();
+    input.chars().for_each(|c| {
+        if rs_map.contains_key(&c) {
+            rs_map.insert(c, rs_map.get(&c).unwrap() + 1);
+        } else {
+            rs_map.insert(c, 1);
+        }
     });
 }

@@ -1,6 +1,7 @@
 package com.kacz.test;
 
 import java.util.List;
+import java.util.Map;
 
 public class Test {
     private final String name;
@@ -13,4 +14,5 @@ public class Test {
 
     public native void differentHellos(List<String> names);
 
+    public native void frequencies(String input);
 }
